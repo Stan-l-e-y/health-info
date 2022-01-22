@@ -1,26 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { useState } from "react";
+import AddCard from "./AddCard";
+import BmiForm from "./BmiForm";
 
-function Example() {
+function App() {
+    const [bmi, setBmi] = useState(false);
+    const [showBmiForm, setShowBmiForm] = useState(false);
+
+    const handleShowForm = () => {
+        setShowBmiForm(!showBmiForm);
+    };
+
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-
-                        <div className="card-body">
-                            I'm an example component!
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+            {bmi ? (
+                <h1>BMI</h1>
+            ) : showBmiForm ? (
+                <BmiForm showForm={handleShowForm} />
+            ) : (
+                // <AddCard onClick={handleShowForm} name="BMI" />
+                <AddCard showForm={handleShowForm} name="BMI" />
+            )}
         </div>
     );
 }
 
-export default Example;
+export default App;
 
-if (document.getElementById("example")) {
-    ReactDOM.render(<Example />, document.getElementById("example"));
+if (document.getElementById("app")) {
+    ReactDOM.render(<App />, document.getElementById("app"));
 }
