@@ -9,9 +9,16 @@ module.exports = {
     ],
 
     theme: {
+        screens: {
+            xs: "500px",
+            ...defaultTheme.screens,
+        },
         extend: {
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
+            },
+            spacing: {
+                69: "17rem",
             },
         },
     },

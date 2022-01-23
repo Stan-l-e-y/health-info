@@ -1,27 +1,63 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCard from "./AddCard";
 import BmiForm from "./BmiForm";
+import axios from "axios";
+import { useForm } from "./useForm";
 
 function App() {
-    const [bmi, setBmi] = useState(false);
+    // const [bmi, setBmi] = useState(false);
+    // const [state, setState] = useState({ age: null, height: null, bmi: null });
     const [showBmiForm, setShowBmiForm] = useState(false);
+    const [values, handleChange] = useForm({
+        weight: "",
+        height: "",
+        bmi: "",
+        measurement: "",
+    });
 
     const handleShowForm = () => {
         setShowBmiForm(!showBmiForm);
     };
 
+    const fetchBmiNum = async () => {
+        let options = {
+            method: "GET",
+            url:
+                `https://body-mass-index-bmi-calculator.p.rapidapi.com/` +
+                values.measurement,
+            params: { weight: values.weight, height: values.height },
+            headers: {
+                "x-rapidapi-host":
+                    "body-mass-index-bmi-calculator.p.rapidapi.com",
+                "x-rapidapi-key":
+                    "58c19e22f2msh94fa4f654a3bdc8p1a4c6cjsnafe1cbc3d3a3",
+            },
+        };
+
+        const data = await axios.request(options);
+        console.log(data.data);
+    };
+
+    useEffect(() => {
+        // fetchBmiNum();
+    });
+
     return (
         <div className="flex items-center justify-center m-10">
-            <div className="flex items-center sm:w-6/12  px-4 py-10 bg-cover card bg-base-200">
+            <div className="flex items-center   px-4 py-10 bg-cover card bg-base-200">
                 <div>
-                    {bmi ? (
+                    {values.bmi ? (
                         <h1>BMI</h1>
                     ) : showBmiForm ? (
-                        <BmiForm showForm={handleShowForm} />
+                        <BmiForm
+                            showForm={handleShowForm}
+                            fetchBmiNum={fetchBmiNum}
+                            values={values}
+                            handleChange={handleChange}
+                        />
                     ) : (
-                        // <AddCard onClick={handleShowForm} name="BMI" />
                         <AddCard
                             showForm={handleShowForm}
                             name="BMI"
@@ -31,24 +67,10 @@ function App() {
                     )}
                 </div>
                 <div>
-                    <div className="flex items-center w-full px-4 py-10 bg-cover card bg-base-200">
-                        <div className="card glass lg:card-side text-neutral-content">
-                            <div className="max-w-md card-body">
-                                <h2 className="card-title">Glass</h2>
-                                <p>
-                                    Rerum reiciendis beatae tenetur excepturi
-                                    aut pariatur est eos. Sit sit necessitatibus
-                                    veritatis sed molestiae voluptates incidunt
-                                    iure sapiente.
-                                </p>
-                                <div className="card-actions">
-                                    <button className="btn glass rounded-full">
-                                        Get Started
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <AddCard
+                        text="Enter your Age to reveal your Maximum Aerobic Function heart rate"
+                        name="MAF"
+                    />
                 </div>
             </div>
         </div>
