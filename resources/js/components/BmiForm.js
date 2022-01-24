@@ -22,7 +22,11 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
                                         </span>
                                     </label>
                                     <label className="input-group ">
-                                        <span className="pr-6">Inches</span>
+                                        {values.measurement == "metric" ? (
+                                            <span className="pr-9">Meters</span>
+                                        ) : (
+                                            <span className="pr-6">Inches</span>
+                                        )}
                                         <input
                                             name="height"
                                             value={values.height}
@@ -40,7 +44,11 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
                                         </span>
                                     </label>
                                     <label className="input-group">
-                                        <span>Pounds</span>
+                                        {values.measurement == "metric" ? (
+                                            <span>Kilograms</span>
+                                        ) : (
+                                            <span>Pounds</span>
+                                        )}
                                         <input
                                             name="weight"
                                             value={values.weight}
@@ -53,22 +61,15 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
                                 </div>
                                 <div>
                                     <select
+                                        name="measurement"
                                         className="select select-bordered w-24 xs:w-40 mt-5 sm:w-96"
                                         onChange={handleChange}
+                                        value={values.measurement}
                                     >
-                                        <option>Select Measurement</option>
-                                        <option
-                                            name="measurement"
-                                            value="imperial"
-                                        >
+                                        <option value="imperial">
                                             Imperial
                                         </option>
-                                        <option
-                                            name="measurement"
-                                            value="metric"
-                                        >
-                                            Metric
-                                        </option>
+                                        <option value="metric">Metric</option>
                                     </select>
                                 </div>
                             </div>

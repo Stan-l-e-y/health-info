@@ -10,16 +10,33 @@ function App() {
     // const [bmi, setBmi] = useState(false);
     // const [state, setState] = useState({ age: null, height: null, bmi: null });
     const [showBmiForm, setShowBmiForm] = useState(false);
+    const [bmiInfo, setBmiInfo] = useState({
+        weight: "",
+        height: "",
+        bmi_number: "",
+        measurement: "",
+    });
     const [values, handleChange] = useForm({
         weight: "",
         height: "",
-        bmi: "",
-        measurement: "",
+        bmi_number: "",
+        measurement: "imperial",
     });
+
+    const user_id = 1;
 
     const handleShowForm = () => {
         setShowBmiForm(!showBmiForm);
     };
+
+    // const handleBmiState = (data) => {
+    //     setBmiInfo({
+    //         weight: data.weight,
+    //         height: data.height,
+    //         bmi_number: data.bmi_number,
+    //         measurement: data.measurement,
+    //     });
+    // };
 
     const fetchBmiNum = async () => {
         let options = {
@@ -36,19 +53,68 @@ function App() {
             },
         };
 
-        const data = await axios.request(options);
-        console.log(data.data);
+        let data = await axios.request(options);
+        data = {
+            height: data.data.height,
+            weight: data.data.weight,
+            measurement: values.measurement,
+            bmi_number: data.data.bmi,
+            user_id: user_id,
+        };
+
+        sendPostRequest(data);
+        let userData = sendGetRequest();
+
+        // handleBmiState(userData);
+        setBmiInfo({
+            ...bmiInfo,
+            weight: userData.weight,
+            height: userData.height,
+            bmi_number: 21,
+            measurement: userData.measurement,
+        });
+
+        console.log(bmiInfo.bmi_number);
+    };
+
+    const sendPostRequest = async (values) => {
+        try {
+            const resp = await axios.post(
+                "http://127.0.0.1:8000/api/bmi/store",
+                values
+            );
+            console.log(resp.data);
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+
+    const sendGetRequest = async () => {
+        try {
+            const resp = await axios.get(
+                "http://127.0.0.1:8000/api/bmi/" + user_id
+            );
+            console.log(resp.data);
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
     };
 
     useEffect(() => {
         // fetchBmiNum();
+        // let test = { weed: "testing!" };
+        // handleChange(() => setState);
+        // console.log(values);
+        console.log(bmiInfo.bmi_number);
     });
 
     return (
         <div className="flex items-center justify-center m-10">
             <div className="flex items-center   px-4 py-10 bg-cover card bg-base-200">
                 <div>
-                    {values.bmi ? (
+                    {bmiInfo.bmi_number ? (
                         <h1>BMI</h1>
                     ) : showBmiForm ? (
                         <BmiForm

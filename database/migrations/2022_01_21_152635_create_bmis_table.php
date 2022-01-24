@@ -17,7 +17,7 @@ class CreateBmisTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->integer('bmi_number');
-            $table->integer('height');
+            $table->double('height');
             $table->double('weight');
             $table->string('measurement');
             $table->timestamps();

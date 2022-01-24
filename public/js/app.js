@@ -8814,6 +8814,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -8848,23 +8854,43 @@ function App() {
       showBmiForm = _useState2[0],
       setShowBmiForm = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    weight: "",
+    height: "",
+    bmi_number: "",
+    measurement: ""
+  }),
+      _useState4 = _slicedToArray(_useState3, 2),
+      bmiInfo = _useState4[0],
+      setBmiInfo = _useState4[1];
+
   var _useForm = (0,_useForm__WEBPACK_IMPORTED_MODULE_6__.useForm)({
     weight: "",
     height: "",
-    bmi: "",
-    measurement: ""
+    bmi_number: "",
+    measurement: "imperial"
   }),
       _useForm2 = _slicedToArray(_useForm, 2),
       values = _useForm2[0],
       handleChange = _useForm2[1];
 
+  var user_id = 1;
+
   var handleShowForm = function handleShowForm() {
     setShowBmiForm(!showBmiForm);
-  };
+  }; // const handleBmiState = (data) => {
+  //     setBmiInfo({
+  //         weight: data.weight,
+  //         height: data.height,
+  //         bmi_number: data.bmi_number,
+  //         measurement: data.measurement,
+  //     });
+  // };
+
 
   var fetchBmiNum = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var options, data;
+      var options, data, userData;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -8886,9 +8912,25 @@ function App() {
 
             case 3:
               data = _context.sent;
-              console.log(data.data);
+              data = {
+                height: data.data.height,
+                weight: data.data.weight,
+                measurement: values.measurement,
+                bmi_number: data.data.bmi,
+                user_id: user_id
+              };
+              sendPostRequest(data);
+              userData = sendGetRequest(); // handleBmiState(userData);
 
-            case 5:
+              setBmiInfo(_objectSpread(_objectSpread({}, bmiInfo), {}, {
+                weight: userData.weight,
+                height: userData.height,
+                bmi_number: 21,
+                measurement: userData.measurement
+              }));
+              console.log(bmiInfo.bmi_number);
+
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -8901,14 +8943,91 @@ function App() {
     };
   }();
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {// fetchBmiNum();
+  var sendPostRequest = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
+      var resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://127.0.0.1:8000/api/bmi/store", values);
+
+            case 3:
+              resp = _context2.sent;
+              console.log(resp.data);
+              _context2.next = 10;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](0);
+              // Handle Error Here
+              console.error(_context2.t0);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 7]]);
+    }));
+
+    return function sendPostRequest(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var sendGetRequest = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://127.0.0.1:8000/api/bmi/" + user_id);
+
+            case 3:
+              resp = _context3.sent;
+              console.log(resp.data);
+              _context3.next = 10;
+              break;
+
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](0);
+              // Handle Error Here
+              console.error(_context3.t0);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 7]]);
+    }));
+
+    return function sendGetRequest() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // fetchBmiNum();
+    // let test = { weed: "testing!" };
+    // handleChange(() => setState);
+    // console.log(values);
+    console.log(bmiInfo.bmi_number);
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "flex items-center justify-center m-10",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "flex items-center   px-4 py-10 bg-cover card bg-base-200",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        children: values.bmi ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        children: bmiInfo.bmi_number ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
           children: "BMI"
         }) : showBmiForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_BmiForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           showForm: handleShowForm,
@@ -8990,7 +9109,10 @@ var BmiForm = function BmiForm(_ref) {
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
                   className: "input-group ",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  children: [values.measurement == "metric" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "pr-9",
+                    children: "Meters"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                     className: "pr-6",
                     children: "Inches"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -9011,7 +9133,9 @@ var BmiForm = function BmiForm(_ref) {
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
                   className: "input-group",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  children: [values.measurement == "metric" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    children: "Kilograms"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                     children: "Pounds"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                     name: "weight",
@@ -9024,16 +9148,14 @@ var BmiForm = function BmiForm(_ref) {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  name: "measurement",
                   className: "select select-bordered w-24 xs:w-40 mt-5 sm:w-96",
                   onChange: handleChange,
+                  value: values.measurement,
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                    children: "Select Measurement"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                    name: "measurement",
                     value: "imperial",
                     children: "Imperial"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
-                    name: "measurement",
                     value: "metric",
                     children: "Metric"
                   })]
