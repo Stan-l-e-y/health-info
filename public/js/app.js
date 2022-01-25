@@ -8814,12 +8814,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -8847,8 +8841,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function App() {
-  // const [bmi, setBmi] = useState(false);
-  // const [state, setState] = useState({ age: null, height: null, bmi: null });
+  var props = {
+    user_id: null
+  };
+
+  if (document.getElementById("app")) {
+    var propsContainer = document.getElementById("app");
+    props = Object.assign({}, propsContainer.dataset);
+  }
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       showBmiForm = _useState2[0],
@@ -8857,7 +8858,7 @@ function App() {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     weight: "",
     height: "",
-    bmi_number: "",
+    bmi_number: undefined,
     measurement: ""
   }),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -8874,23 +8875,15 @@ function App() {
       values = _useForm2[0],
       handleChange = _useForm2[1];
 
-  var user_id = 1;
+  var user_id = props.user_id;
 
   var handleShowForm = function handleShowForm() {
     setShowBmiForm(!showBmiForm);
-  }; // const handleBmiState = (data) => {
-  //     setBmiInfo({
-  //         weight: data.weight,
-  //         height: data.height,
-  //         bmi_number: data.bmi_number,
-  //         measurement: data.measurement,
-  //     });
-  // };
-
+  };
 
   var fetchBmiNum = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var options, data, userData;
+      var options, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -8920,17 +8913,16 @@ function App() {
                 user_id: user_id
               };
               sendPostRequest(data);
-              userData = sendGetRequest(); // handleBmiState(userData);
+              sendGetRequest().then(function (userData) {
+                return setBmiInfo({
+                  weight: userData.weight,
+                  height: userData.height,
+                  bmi_number: userData.bmi_number,
+                  measurement: userData.measurement
+                });
+              });
 
-              setBmiInfo(_objectSpread(_objectSpread({}, bmiInfo), {}, {
-                weight: userData.weight,
-                height: userData.height,
-                bmi_number: 21,
-                measurement: userData.measurement
-              }));
-              console.log(bmiInfo.bmi_number);
-
-            case 9:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -8956,22 +8948,21 @@ function App() {
 
             case 3:
               resp = _context2.sent;
-              console.log(resp.data);
-              _context2.next = 10;
+              _context2.next = 9;
               break;
 
-            case 7:
-              _context2.prev = 7;
+            case 6:
+              _context2.prev = 6;
               _context2.t0 = _context2["catch"](0);
               // Handle Error Here
               console.error(_context2.t0);
 
-            case 10:
+            case 9:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 7]]);
+      }, _callee2, null, [[0, 6]]);
     }));
 
     return function sendPostRequest(_x) {
@@ -8992,9 +8983,7 @@ function App() {
 
             case 3:
               resp = _context3.sent;
-              console.log(resp.data);
-              _context3.next = 10;
-              break;
+              return _context3.abrupt("return", resp.data);
 
             case 7:
               _context3.prev = 7;
@@ -9016,18 +9005,23 @@ function App() {
   }();
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    // fetchBmiNum();
-    // let test = { weed: "testing!" };
-    // handleChange(() => setState);
-    // console.log(values);
-    console.log(bmiInfo.bmi_number);
-  });
+    sendGetRequest().then(function (userData) {
+      return setBmiInfo({
+        weight: userData.weight,
+        height: userData.height,
+        bmi_number: userData.bmi_number,
+        measurement: userData.measurement
+      });
+    });
+    console.log(bmiInfo);
+    console.log(user_id);
+  }, [bmiInfo.bmi_number]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "flex items-center justify-center m-10",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "flex items-center   px-4 py-10 bg-cover card bg-base-200",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        children: bmiInfo.bmi_number ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+        children: !isNaN(bmiInfo.bmi_number) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
           children: "BMI"
         }) : showBmiForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_BmiForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           showForm: handleShowForm,

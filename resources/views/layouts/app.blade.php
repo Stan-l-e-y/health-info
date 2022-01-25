@@ -31,7 +31,7 @@
 
             <!-- Page Content -->
             <main>
-                <div id="app"></div>
+                <div  id="app" data-user_id="{{ auth()->id() }}"></div>
                 {{-- {{ $slot }} --}}
             </main>
         </div>
