@@ -4,7 +4,7 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
     return (
         <div>
             <div className="flex items-center w-full  px-4 py-10 bg-cover card bg-base-200">
-                <div className="card glass lg:card-side text-neutral-content">
+                <div className=" card glass lg:card-side text-neutral-content ">
                     <div className="max-w-md card-body flex">
                         <div className="flex justify-between">
                             <h2 className="card-title">BMI Form</h2>

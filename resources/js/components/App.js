@@ -5,6 +5,8 @@ import AddCard from "./AddCard";
 import BmiForm from "./BmiForm";
 import axios from "axios";
 import { useForm } from "./useForm";
+import Bmi from "./Bmi";
+import { FaRunning, FaWeight } from "react-icons/fa";
 
 function App() {
     let props = { user_id: null };
@@ -16,6 +18,7 @@ function App() {
     }
 
     const [showBmiForm, setShowBmiForm] = useState(false);
+    const [showBmiEdit, setshowBmiEdit] = useState(false);
     const [bmiInfo, setBmiInfo] = useState({
         weight: "",
         height: "",
@@ -33,6 +36,10 @@ function App() {
 
     const handleShowForm = () => {
         setShowBmiForm(!showBmiForm);
+    };
+
+    const handleEditBmi = () => {
+        setshowBmiEdit(!showBmiEdit);
     };
 
     const fetchBmiNum = async () => {
@@ -110,10 +117,14 @@ function App() {
 
     return (
         <div className="flex items-center justify-center m-10">
-            <div className="flex items-center   px-4 py-10 bg-cover card bg-base-200">
+            <div className="flex items-center  px-4 py-10 bg-cover card bg-base-200">
                 <div>
                     {!isNaN(bmiInfo.bmi_number) ? (
-                        <h1>BMI</h1>
+                        <Bmi
+                            bmiNum={bmiInfo.bmi_number}
+                            showEdit={handleEditBmi}
+                            showBmiEdit={showBmiEdit}
+                        />
                     ) : showBmiForm ? (
                         <BmiForm
                             showForm={handleShowForm}
@@ -127,6 +138,7 @@ function App() {
                             name="BMI"
                             text="Enter your Age and Height to get your associated
                         Body Mass Index number."
+                            icon={<FaWeight />}
                         />
                     )}
                 </div>
@@ -134,6 +146,7 @@ function App() {
                     <AddCard
                         text="Enter your Age to reveal your Maximum Aerobic Function heart rate"
                         name="MAF"
+                        icon={<FaRunning />}
                     />
                 </div>
             </div>
@@ -146,3 +159,14 @@ export default App;
 if (document.getElementById("app")) {
     ReactDOM.render(<App />, document.getElementById("app"));
 }
+/**
+ * ToDo
+ * - Add Card for BMI
+ *  - impliment useSpring for bmi number
+ * - Add error messages to form
+ *
+ *
+ *
+ *
+ *
+ */

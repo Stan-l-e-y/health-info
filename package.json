@@ -31,6 +31,7 @@
     "dependencies": {
         "daisyui": "^1.24.3",
         "font-awesome": "^4.7.0",
-        "react-icons": "^4.3.1"
+        "react-icons": "^4.3.1",
+        "react-spring": "^9.4.2"
     }
 }
