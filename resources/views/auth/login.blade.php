@@ -51,6 +51,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+            <a href="{{ route('register') }}" class="hover:text-blue-500">Register here!</a>
         </form>
     </x-auth-card>
 </x-guest-layout>

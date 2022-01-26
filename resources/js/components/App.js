@@ -19,6 +19,7 @@ function App() {
 
     const [showBmiForm, setShowBmiForm] = useState(false);
     const [showBmiEdit, setshowBmiEdit] = useState(false);
+
     const [bmiInfo, setBmiInfo] = useState({
         weight: "",
         height: "",
@@ -111,8 +112,6 @@ function App() {
                 measurement: userData.measurement,
             })
         );
-        console.log(bmiInfo);
-        console.log(user_id);
     }, [bmiInfo.bmi_number]);
 
     return (
@@ -136,7 +135,7 @@ function App() {
                         <AddCard
                             showForm={handleShowForm}
                             name="BMI"
-                            text="Enter your Age and Height to get your associated
+                            text="Enter your Weight and Height to get your associated
                         Body Mass Index number."
                             icon={<FaWeight />}
                         />

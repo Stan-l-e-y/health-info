@@ -13412,8 +13412,6 @@ function App() {
         measurement: userData.measurement
       });
     });
-    console.log(bmiInfo);
-    console.log(user_id);
   }, [bmiInfo.bmi_number]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     className: "flex items-center justify-center m-10",
@@ -13432,7 +13430,7 @@ function App() {
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
           showForm: handleShowForm,
           name: "BMI",
-          text: "Enter your Age and Height to get your associated Body Mass Index number.",
+          text: "Enter your Weight and Height to get your associated Body Mass Index number.",
           icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_9__.FaWeight, {})
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -13476,9 +13474,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
+/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
 /* harmony import */ var _Number__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Number */ "./resources/js/components/Number.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_spring__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-spring */ "./node_modules/react-spring/dist/react-spring.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
@@ -13488,36 +13502,108 @@ var Bmi = function Bmi(_ref) {
   var bmiNum = _ref.bmiNum,
       showEdit = _ref.showEdit,
       showBmiEdit = _ref.showBmiEdit;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      showBmiMessage = _useState2[0],
+      setShowBmiMessage = _useState2[1];
+
+  var transition = (0,react_spring__WEBPACK_IMPORTED_MODULE_2__.useTransition)(showBmiMessage, {
+    from: {
+      x: 0,
+      y: 50,
+      opacity: 0,
+      maxHeight: 0
+    },
+    enter: {
+      x: 0,
+      y: 0,
+      opacity: 1,
+      maxHeight: 170
+    },
+    delay: 500
+  });
+  var editTransition = (0,react_spring__WEBPACK_IMPORTED_MODULE_2__.useTransition)(showBmiEdit, {
+    from: {
+      x: 5,
+      y: -5,
+      opacity: 0
+    },
+    enter: {
+      x: 0,
+      y: 0,
+      opacity: 1
+    },
+    delay: 10
+  });
+
+  var handleBmiMessage = function handleBmiMessage() {
+    setShowBmiMessage(!showBmiMessage);
+  };
+
+  var bmiMessage = function bmiMessage() {
+    if (bmiNum < 19) {
+      return " you are classified as Underweight";
+    } else if (bmiNum >= 19 && bmiNum < 25) {
+      return " your weight is Normal";
+    } else if (bmiNum >= 25 && bmiNum < 30) {
+      return " you are classified as Overweight";
+    } else {
+      return " you are classified as Obese";
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: " flex items-center w-full px-4 py-10 bg-cover card bg-base-200",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "  bg-primary hover:bg-primary card glass lg:card-side text-neutral-content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "max-w-md card-body",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "flex",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
               className: "card-title xs:w-69 lg:w-96 sm:w-96 w-48",
               children: "BODY MASS INDEX:"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "relative",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__.FaEllipsisH, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "relative flex flex-col w-10 items-end",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_4__.FaEllipsisH, {
                 className: "hover:cursor-pointer",
                 onClick: function onClick() {
                   return showEdit();
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                children: showBmiEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-                  children: "Edit"
-                })
+              }), editTransition(function (style, item) {
+                return item && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_spring__WEBPACK_IMPORTED_MODULE_2__.animated.span, {
+                  style: style,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    className: " relative mt-1 glass border rounded-md text-extrabold text-sm p-1 ",
+                    children: "Edit"
+                  })
+                });
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "text-4xl font-extrabold",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_Number__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              bmiNum: bmiNum
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "text-4xl font-extrabold mb-5",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Number__WEBPACK_IMPORTED_MODULE_0__["default"], {
+              bmiNum: bmiNum,
+              showBmiMessage: handleBmiMessage
             })
+          }), transition(function (style, item) {
+            return item && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_spring__WEBPACK_IMPORTED_MODULE_2__.animated.span, {
+              style: style,
+              className: " ease-in duration-300  ",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+                children: ["According to the", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                  target: "_blank",
+                  href: "https://www.health.harvard.edu/diet-and-weight-loss/bmi-calculator",
+                  className: "hover:text-gray-700 ease-in duration-300",
+                  children: [" ", "BMI Table"]
+                }), ",", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "font-extrabold",
+                  children: bmiMessage()
+                })]
+              })
+            });
           })]
         })
       })
@@ -13683,7 +13769,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Number = function Number(_ref) {
-  var bmiNum = _ref.bmiNum;
+  var bmiNum = _ref.bmiNum,
+      showBmiMessage = _ref.showBmiMessage;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -13697,7 +13784,7 @@ var Number = function Number(_ref) {
       number: 0
     },
     number: bmiNum,
-    delay: 300,
+    delay: 500,
     // config: config.molasses,
     onRest: function onRest() {
       return set(!flip);
@@ -13705,6 +13792,11 @@ var Number = function Number(_ref) {
   }),
       number = _useSpring.number;
 
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setTimeout(function () {
+      showBmiMessage();
+    }, 1200);
+  }, [number]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_spring__WEBPACK_IMPORTED_MODULE_0__.animated.div, {
     children: number.to(function (n) {
       return n.toFixed(0);
