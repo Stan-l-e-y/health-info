@@ -3,7 +3,7 @@ import Number from "./Number";
 import { useState } from "react";
 import { useSpring, animated, useTransition, useSpringRef } from "react-spring";
 
-const Bmi = ({ bmiNum, showEdit, showBmiEdit }) => {
+const Bmi = ({ bmiNum, showEdit, showBmiEdit, showBmitEditForm }) => {
     const [showBmiMessage, setShowBmiMessage] = useState(false);
     const transition = useTransition(showBmiMessage, {
         from: { x: 0, y: 50, opacity: 0, maxHeight: 0 },
@@ -12,8 +12,8 @@ const Bmi = ({ bmiNum, showEdit, showBmiEdit }) => {
     });
 
     const editTransition = useTransition(showBmiEdit, {
-        from: { x: 5, y: -5, opacity: 0 },
-        enter: { x: 0, y: 0, opacity: 1 },
+        from: { x: -20, y: -5, opacity: 0 },
+        enter: { x: -25, y: 0, opacity: 1 },
         delay: 10,
     });
 
@@ -47,15 +47,17 @@ const Bmi = ({ bmiNum, showEdit, showBmiEdit }) => {
                                     className="hover:cursor-pointer"
                                     onClick={() => showEdit()}
                                 />
-                                {/* {showBmiEdit && (
-                                    <span className="relative top-0">Edit</span>
-                                )} */}
 
                                 {editTransition(
                                     (style, item) =>
                                         item && (
                                             <animated.span style={style}>
-                                                <button className=" relative mt-1 glass border rounded-md text-extrabold text-sm p-1 ">
+                                                <button
+                                                    className="absolute ease-in-out duration-100  mt-1 glass border rounded-md text-extrabold text-sm p-1 "
+                                                    onClick={() =>
+                                                        showBmitEditForm()
+                                                    }
+                                                >
                                                     Edit
                                                 </button>
                                             </animated.span>

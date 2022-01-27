@@ -13198,13 +13198,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _useForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./useForm */ "./resources/js/components/useForm.js");
 /* harmony import */ var _Bmi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Bmi */ "./resources/js/components/Bmi.js");
-/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
+/* harmony import */ var _BmiEditForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./BmiEditForm */ "./resources/js/components/BmiEditForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -13217,6 +13224,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -13250,15 +13258,20 @@ function App() {
       showBmiEdit = _useState4[0],
       setshowBmiEdit = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      showBmiEditForm = _useState6[0],
+      setShowBmiEditForm = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     weight: "",
     height: "",
     bmi_number: undefined,
     measurement: ""
   }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      bmiInfo = _useState6[0],
-      setBmiInfo = _useState6[1];
+      _useState8 = _slicedToArray(_useState7, 2),
+      bmiInfo = _useState8[0],
+      setBmiInfo = _useState8[1];
 
   var _useForm = (0,_useForm__WEBPACK_IMPORTED_MODULE_6__.useForm)({
     weight: "",
@@ -13270,7 +13283,24 @@ function App() {
       values = _useForm2[0],
       handleChange = _useForm2[1];
 
+  var handleBmiInfo = function handleBmiInfo(e) {
+    setBmiInfo(_objectSpread(_objectSpread({}, bmiInfo), {}, _defineProperty({}, e.target.name, e.target.value)));
+  };
+
+  var changeEntireBmiInfo = function changeEntireBmiInfo(data) {
+    setBmiInfo({
+      weight: data.weight,
+      height: data.height,
+      bmi_number: data.bmi_number,
+      measurement: data.measurement
+    });
+  };
+
   var user_id = props.user_id;
+
+  var handleShowBmiEditForm = function handleShowBmiEditForm() {
+    setShowBmiEditForm(!showBmiEditForm);
+  };
 
   var handleShowForm = function handleShowForm() {
     setShowBmiForm(!showBmiForm);
@@ -13281,7 +13311,7 @@ function App() {
   };
 
   var fetchBmiNum = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(object) {
       var options, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -13289,10 +13319,10 @@ function App() {
             case 0:
               options = {
                 method: "GET",
-                url: "https://body-mass-index-bmi-calculator.p.rapidapi.com/" + values.measurement,
+                url: "https://body-mass-index-bmi-calculator.p.rapidapi.com/" + object.measurement,
                 params: {
-                  weight: values.weight,
-                  height: values.height
+                  weight: object.weight,
+                  height: object.height
                 },
                 headers: {
                   "x-rapidapi-host": "body-mass-index-bmi-calculator.p.rapidapi.com",
@@ -13304,24 +13334,22 @@ function App() {
 
             case 3:
               data = _context.sent;
+              // console.log(data);
               data = {
                 height: data.data.height,
                 weight: data.data.weight,
-                measurement: values.measurement,
+                measurement: object.measurement,
                 bmi_number: data.data.bmi,
                 user_id: user_id
-              };
-              sendPostRequest(data);
-              sendGetRequest().then(function (userData) {
-                return setBmiInfo({
-                  weight: userData.weight,
-                  height: userData.height,
-                  bmi_number: userData.bmi_number,
-                  measurement: userData.measurement
-                });
-              });
+              }; // console.log(data);
+              // const postReq = await sendPostRequest(data);
+              // const getReq = await sendGetRequest();
 
-            case 7:
+              sendPostRequest(data).then(sendGetRequest().then(function (userData) {
+                return changeEntireBmiInfo(userData);
+              })); // console.log(bmiInfo.bmi_number);
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -13329,48 +13357,66 @@ function App() {
       }, _callee);
     }));
 
-    return function fetchBmiNum() {
+    return function fetchBmiNum(_x) {
       return _ref.apply(this, arguments);
     };
   }();
 
-  var sendPostRequest = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
-      var resp;
+  var fetchBmiPutReq = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(object) {
+      var options, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
+              options = {
+                method: "GET",
+                url: "https://body-mass-index-bmi-calculator.p.rapidapi.com/" + object.measurement,
+                params: {
+                  weight: object.weight,
+                  height: object.height
+                },
+                headers: {
+                  "x-rapidapi-host": "body-mass-index-bmi-calculator.p.rapidapi.com",
+                  "x-rapidapi-key": "58c19e22f2msh94fa4f654a3bdc8p1a4c6cjsnafe1cbc3d3a3"
+                }
+              };
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://127.0.0.1:8000/api/bmi/store", values);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().request(options);
 
             case 3:
-              resp = _context2.sent;
-              _context2.next = 9;
-              break;
+              data = _context2.sent;
+              data = {
+                height: data.data.height,
+                weight: data.data.weight,
+                measurement: object.measurement,
+                bmi_number: data.data.bmi
+              };
+              sendPutRequest(data).then(function (response) {
+                if (response.status == 200) {
+                  handleShowBmiEditForm();
+                }
+
+                sendGetRequest().then(function (userData) {
+                  return changeEntireBmiInfo(userData);
+                });
+              });
 
             case 6:
-              _context2.prev = 6;
-              _context2.t0 = _context2["catch"](0);
-              // Handle Error Here
-              console.error(_context2.t0);
-
-            case 9:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 6]]);
+      }, _callee2);
     }));
 
-    return function sendPostRequest(_x) {
+    return function fetchBmiPutReq(_x2) {
       return _ref2.apply(this, arguments);
     };
   }();
 
-  var sendGetRequest = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+  var sendPostRequest = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(values) {
       var resp;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
@@ -13378,66 +13424,136 @@ function App() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://127.0.0.1:8000/api/bmi/" + user_id);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://127.0.0.1:8000/api/bmi/store", values);
 
             case 3:
               resp = _context3.sent;
-              return _context3.abrupt("return", resp.data);
+              _context3.next = 9;
+              break;
 
-            case 7:
-              _context3.prev = 7;
+            case 6:
+              _context3.prev = 6;
               _context3.t0 = _context3["catch"](0);
               // Handle Error Here
               console.error(_context3.t0);
 
-            case 10:
+            case 9:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 7]]);
+      }, _callee3, null, [[0, 6]]);
+    }));
+
+    return function sendPostRequest(_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var sendGetRequest = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://127.0.0.1:8000/api/bmi/" + user_id);
+
+            case 3:
+              resp = _context4.sent;
+              return _context4.abrupt("return", resp.data);
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              // Handle Error Here
+              console.error(_context4.t0);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 7]]);
     }));
 
     return function sendGetRequest() {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var sendPutRequest = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
+      var resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().put("http://127.0.0.1:8000/api/bmi/" + user_id, data);
+
+            case 3:
+              resp = _context5.sent;
+              return _context5.abrupt("return", resp);
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](0);
+              console.error(_context5.t0);
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[0, 7]]);
+    }));
+
+    return function sendPutRequest(_x4) {
+      return _ref5.apply(this, arguments);
     };
   }();
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     sendGetRequest().then(function (userData) {
-      return setBmiInfo({
-        weight: userData.weight,
-        height: userData.height,
-        bmi_number: userData.bmi_number,
-        measurement: userData.measurement
-      });
+      return changeEntireBmiInfo(userData);
     });
   }, [bmiInfo.bmi_number]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
     className: "flex items-center justify-center m-10",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "flex items-center  px-4 py-10 bg-cover card bg-base-200",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        children: !isNaN(bmiInfo.bmi_number) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Bmi__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: !isNaN(bmiInfo.bmi_number) && !showBmiEditForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Bmi__WEBPACK_IMPORTED_MODULE_7__["default"], {
           bmiNum: bmiInfo.bmi_number,
           showEdit: handleEditBmi,
-          showBmiEdit: showBmiEdit
-        }) : showBmiForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_BmiForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          showBmiEdit: showBmiEdit,
+          showBmitEditForm: handleShowBmiEditForm
+        }) : showBmiForm && !showBmiEditForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_BmiForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           showForm: handleShowForm,
           fetchBmiNum: fetchBmiNum,
           values: values,
           handleChange: handleChange
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }) : showBmiEditForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_BmiEditForm__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          showBmitEditForm: handleShowBmiEditForm,
+          fetchBmiNum: fetchBmiNum,
+          bmiInfo: bmiInfo,
+          handleBmiInfo: handleBmiInfo,
+          fetchBmiPutReq: fetchBmiPutReq
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
           showForm: handleShowForm,
           name: "BMI",
           text: "Enter your Weight and Height to get your associated Body Mass Index number.",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_9__.FaWeight, {})
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_10__.FaWeight, {})
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
           text: "Enter your Age to reveal your Maximum Aerobic Function heart rate",
           name: "MAF",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_9__.FaRunning, {})
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_10__.FaRunning, {})
         })
       })]
     })
@@ -13447,7 +13563,7 @@ function App() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 if (document.getElementById("app")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(App, {}), document.getElementById("app"));
+  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(App, {}), document.getElementById("app"));
 }
 /**
  * ToDo
@@ -13501,7 +13617,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var Bmi = function Bmi(_ref) {
   var bmiNum = _ref.bmiNum,
       showEdit = _ref.showEdit,
-      showBmiEdit = _ref.showBmiEdit;
+      showBmiEdit = _ref.showBmiEdit,
+      showBmitEditForm = _ref.showBmitEditForm;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -13525,12 +13642,12 @@ var Bmi = function Bmi(_ref) {
   });
   var editTransition = (0,react_spring__WEBPACK_IMPORTED_MODULE_2__.useTransition)(showBmiEdit, {
     from: {
-      x: 5,
+      x: -20,
       y: -5,
       opacity: 0
     },
     enter: {
-      x: 0,
+      x: -25,
       y: 0,
       opacity: 1
     },
@@ -13576,7 +13693,10 @@ var Bmi = function Bmi(_ref) {
                 return item && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_spring__WEBPACK_IMPORTED_MODULE_2__.animated.span, {
                   style: style,
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                    className: " relative mt-1 glass border rounded-md text-extrabold text-sm p-1 ",
+                    className: "absolute ease-in-out duration-100  mt-1 glass border rounded-md text-extrabold text-sm p-1 ",
+                    onClick: function onClick() {
+                      return showBmitEditForm();
+                    },
                     children: "Edit"
                   })
                 });
@@ -13612,6 +13732,132 @@ var Bmi = function Bmi(_ref) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bmi);
+
+/***/ }),
+
+/***/ "./resources/js/components/BmiEditForm.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/BmiEditForm.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var BmiEditForm = function BmiEditForm(_ref) {
+  var fetchBmiNum = _ref.fetchBmiNum,
+      bmiInfo = _ref.bmiInfo,
+      handleBmiInfo = _ref.handleBmiInfo,
+      showBmitEditForm = _ref.showBmitEditForm,
+      fetchBmiPutReq = _ref.fetchBmiPutReq;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "flex items-center w-full  px-4 py-10 bg-cover card bg-base-200",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: " card glass lg:card-side text-neutral-content ",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "max-w-md card-body flex",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "flex justify-between",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", {
+              className: "card-title",
+              children: "Edit your data"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_1__.FaTimes, {
+              onClick: function onClick() {
+                return showBmitEditForm();
+              },
+              className: "hover:cursor-pointer"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-control xs:w-69 lg:w-96 sm:w-96 w-48",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                  className: "label",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "label-text",
+                    children: "Height"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
+                  className: "input-group ",
+                  children: [bmiInfo.measurement == "metric" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "pr-9",
+                    children: "Meters"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "pr-6",
+                    children: "Inches"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                    name: "height",
+                    value: bmiInfo.height,
+                    onChange: handleBmiInfo,
+                    type: "text",
+                    placeholder: "80",
+                    className: "input input-bordered xs:w-40 sm:w-96 w-24"
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                  className: "label",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    className: "label-text",
+                    children: "Weight"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
+                  className: "input-group",
+                  children: [bmiInfo.measurement == "metric" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    children: "Kilograms"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                    children: "Pounds"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                    name: "weight",
+                    value: bmiInfo.weight,
+                    onChange: handleBmiInfo,
+                    type: "text",
+                    placeholder: "150",
+                    className: "input input-bordered xs:w-40 sm:w-96 w-24"
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+                  name: "measurement",
+                  className: "select select-bordered w-24 xs:w-40 mt-5 sm:w-96",
+                  onChange: handleBmiInfo,
+                  value: bmiInfo.measurement,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "imperial",
+                    children: "Imperial"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+                    value: "metric",
+                    children: "Metric"
+                  })]
+                })
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "card-actions",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              className: "btn glass rounded-full",
+              onClick: function onClick() {
+                return fetchBmiPutReq(bmiInfo);
+              },
+              children: "Update"
+            })
+          })]
+        })
+      })
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BmiEditForm);
 
 /***/ }),
 
@@ -13724,7 +13970,9 @@ var BmiForm = function BmiForm(_ref) {
             className: "card-actions",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
               className: "btn glass rounded-full",
-              onClick: fetchBmiNum,
+              onClick: function onClick() {
+                return fetchBmiNum(values);
+              },
               children: "Submit"
             })
           })]

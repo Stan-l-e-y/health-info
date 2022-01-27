@@ -83,6 +83,7 @@ class BMIsController extends Controller
             'weight' => 'numeric|required',
             'height' => 'numeric|required',
             'measurement' => 'required',
+            'bmi_number' => 'required'
         ]);
 
         $bmi = bmi::find($id);
