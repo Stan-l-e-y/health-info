@@ -13692,6 +13692,7 @@ var Bmi = function Bmi(_ref) {
               className: "relative flex flex-col w-10 items-end",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_outSideAlert__WEBPACK_IMPORTED_MODULE_3__["default"], {
                 showEdit: showEdit,
+                showBmiEdit: showBmiEdit,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_5__.FaEllipsisH, {
                   className: "hover:cursor-pointer",
                   onClick: function onClick() {
@@ -14098,10 +14099,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function useOutsideAlerter(ref, func) {
+function useOutsideAlerter(ref, func, condition) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (ref.current && !ref.current.contains(event.target) && condition) {
         setTimeout(function () {
           func();
         }, 100);
@@ -14117,7 +14118,7 @@ function useOutsideAlerter(ref, func) {
 
 var OutsideAlerter = function OutsideAlerter(props) {
   var wrapperRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  useOutsideAlerter(wrapperRef, props.showEdit);
+  useOutsideAlerter(wrapperRef, props.showEdit, props.showBmiEdit);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     ref: wrapperRef,
     children: props.children

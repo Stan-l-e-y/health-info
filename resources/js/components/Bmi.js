@@ -44,7 +44,10 @@ const Bmi = ({ bmiNum, showEdit, showBmiEdit, showBmitEditForm }) => {
                                 BODY MASS INDEX:
                             </h2>
                             <div className="relative flex flex-col w-10 items-end">
-                                <OutsideAlert showEdit={showEdit}>
+                                <OutsideAlert
+                                    showEdit={showEdit}
+                                    showBmiEdit={showBmiEdit}
+                                >
                                     <FaEllipsisH
                                         className="hover:cursor-pointer"
                                         onClick={() => showEdit()}
