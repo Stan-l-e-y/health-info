@@ -211,7 +211,7 @@ function App() {
 
                 <div>
                     <AddCard
-                        text="Enter your Age to reveal your Maximum Aerobic Function heart rate"
+                        text="Enter your Age to reveal your Maximum Aerobic Function heart rate (IN PRODUCTION)"
                         name="MAF"
                         icon={<FaRunning />}
                     />

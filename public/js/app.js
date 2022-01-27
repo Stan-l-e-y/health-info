@@ -13555,7 +13555,7 @@ function App() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          text: "Enter your Age to reveal your Maximum Aerobic Function heart rate",
+          text: "Enter your Age to reveal your Maximum Aerobic Function heart rate (IN PRODUCTION)",
           name: "MAF",
           icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_10__.FaRunning, {})
         })
