@@ -1,6 +1,6 @@
 import { FaTimes } from "react-icons/fa";
 
-const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
+const BmiForm = ({ showForm, fetchBmiNum, values, handleChange, errors }) => {
     return (
         <div>
             <div className="flex items-center w-full  px-4 py-10 bg-cover card bg-base-200">
@@ -36,6 +36,9 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
                                             className="input input-bordered xs:w-40 sm:w-96 w-24"
                                         />
                                     </label>
+                                    <span className="text-sm text-red-500">
+                                        {errors.height && errors.height}
+                                    </span>
                                 </div>
                                 <div>
                                     <label className="label">
@@ -58,6 +61,9 @@ const BmiForm = ({ showForm, fetchBmiNum, values, handleChange }) => {
                                             className="input input-bordered xs:w-40 sm:w-96 w-24"
                                         />
                                     </label>
+                                    <span className="text-sm text-red-500">
+                                        {errors.weight && errors.weight}
+                                    </span>
                                 </div>
                                 <div>
                                     <select

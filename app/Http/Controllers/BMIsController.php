@@ -38,7 +38,7 @@ class BMIsController extends Controller
         $attributes = request()->validate([
             'weight' => 'numeric|required',
             'height' => 'numeric|required',
-            'bmi_number' => 'numeric|required',
+            'bmi_number' => 'nullable',
             'measurement' => 'required',
             'user_id' => 'required'
         ]);
@@ -83,7 +83,7 @@ class BMIsController extends Controller
             'weight' => 'numeric|required',
             'height' => 'numeric|required',
             'measurement' => 'required',
-            'bmi_number' => 'required'
+            'bmi_number' => 'nullable'
         ]);
 
         $bmi = bmi::find($id);

@@ -13263,15 +13263,23 @@ function App() {
       showBmiEditForm = _useState6[0],
       setShowBmiEditForm = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+      _useState8 = _slicedToArray(_useState7, 2),
+      errors = _useState8[0],
+      setErrors = _useState8[1]; // const handleErrors = (error) => {
+  //     setErrors({ weight: error });
+  // };
+
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     weight: "",
     height: "",
     bmi_number: undefined,
     measurement: ""
   }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      bmiInfo = _useState8[0],
-      setBmiInfo = _useState8[1];
+      _useState10 = _slicedToArray(_useState9, 2),
+      bmiInfo = _useState10[0],
+      setBmiInfo = _useState10[1];
 
   var _useForm = (0,_useForm__WEBPACK_IMPORTED_MODULE_6__.useForm)({
     weight: "",
@@ -13341,13 +13349,10 @@ function App() {
                 measurement: object.measurement,
                 bmi_number: data.data.bmi,
                 user_id: user_id
-              }; // console.log(data);
-              // const postReq = await sendPostRequest(data);
-              // const getReq = await sendGetRequest();
-
+              };
               sendPostRequest(data).then(sendGetRequest().then(function (userData) {
                 return changeEntireBmiInfo(userData);
-              })); // console.log(bmiInfo.bmi_number);
+              }));
 
             case 6:
             case "end":
@@ -13434,8 +13439,7 @@ function App() {
             case 6:
               _context3.prev = 6;
               _context3.t0 = _context3["catch"](0);
-              // Handle Error Here
-              console.error(_context3.t0);
+              setErrors(_context3.t0.response.data.errors);
 
             case 9:
             case "end":
@@ -13502,7 +13506,7 @@ function App() {
             case 7:
               _context5.prev = 7;
               _context5.t0 = _context5["catch"](0);
-              console.error(_context5.t0);
+              setErrors(_context5.t0.response.data.errors);
 
             case 10:
             case "end":
@@ -13534,6 +13538,7 @@ function App() {
           showBmitEditForm: handleShowBmiEditForm
         }) : showBmiForm && !showBmiEditForm ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_BmiForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           showForm: handleShowForm,
+          errors: errors,
           fetchBmiNum: fetchBmiNum,
           values: values,
           handleChange: handleChange
@@ -13541,6 +13546,7 @@ function App() {
           showBmitEditForm: handleShowBmiEditForm,
           fetchBmiNum: fetchBmiNum,
           bmiInfo: bmiInfo,
+          errors: errors,
           handleBmiInfo: handleBmiInfo,
           fetchBmiPutReq: fetchBmiPutReq
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_AddCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -13757,7 +13763,8 @@ var BmiEditForm = function BmiEditForm(_ref) {
       bmiInfo = _ref.bmiInfo,
       handleBmiInfo = _ref.handleBmiInfo,
       showBmitEditForm = _ref.showBmitEditForm,
-      fetchBmiPutReq = _ref.fetchBmiPutReq;
+      fetchBmiPutReq = _ref.fetchBmiPutReq,
+      errors = _ref.errors;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "flex items-center w-full  px-4 py-10 bg-cover card bg-base-200",
@@ -13802,6 +13809,9 @@ var BmiEditForm = function BmiEditForm(_ref) {
                     placeholder: "80",
                     className: "input input-bordered xs:w-40 sm:w-96 w-24"
                   })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "text-sm text-red-500",
+                  children: errors.height && errors.height
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
@@ -13824,6 +13834,9 @@ var BmiEditForm = function BmiEditForm(_ref) {
                     placeholder: "150",
                     className: "input input-bordered xs:w-40 sm:w-96 w-24"
                   })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "text-sm text-red-500",
+                  children: errors.weight && errors.weight
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
@@ -13882,7 +13895,8 @@ var BmiForm = function BmiForm(_ref) {
   var showForm = _ref.showForm,
       fetchBmiNum = _ref.fetchBmiNum,
       values = _ref.values,
-      handleChange = _ref.handleChange;
+      handleChange = _ref.handleChange,
+      errors = _ref.errors;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "flex items-center w-full  px-4 py-10 bg-cover card bg-base-200",
@@ -13927,6 +13941,9 @@ var BmiForm = function BmiForm(_ref) {
                     placeholder: "80",
                     className: "input input-bordered xs:w-40 sm:w-96 w-24"
                   })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "text-sm text-red-500",
+                  children: errors.height && errors.height
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
@@ -13949,6 +13966,9 @@ var BmiForm = function BmiForm(_ref) {
                     placeholder: "150",
                     className: "input input-bordered xs:w-40 sm:w-96 w-24"
                   })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "text-sm text-red-500",
+                  children: errors.weight && errors.weight
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {

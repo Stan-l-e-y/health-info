@@ -22,6 +22,12 @@ function App() {
     const [showBmiEdit, setshowBmiEdit] = useState(false);
     const [showBmiEditForm, setShowBmiEditForm] = useState(false);
 
+    const [errors, setErrors] = useState({});
+
+    // const handleErrors = (error) => {
+    //     setErrors({ weight: error });
+    // };
+
     const [bmiInfo, setBmiInfo] = useState({
         weight: "",
         height: "",
@@ -90,17 +96,10 @@ function App() {
             bmi_number: data.data.bmi,
             user_id: user_id,
         };
-        // console.log(data);
-
-        // const postReq = await sendPostRequest(data);
-
-        // const getReq = await sendGetRequest();
 
         sendPostRequest(data).then(
             sendGetRequest().then((userData) => changeEntireBmiInfo(userData))
         );
-
-        // console.log(bmiInfo.bmi_number);
     };
 
     const fetchBmiPutReq = async (object) => {
@@ -142,10 +141,8 @@ function App() {
                 "http://127.0.0.1:8000/api/bmi/store",
                 values
             );
-            // console.log(resp);
         } catch (err) {
-            // Handle Error Here
-            console.error(err);
+            setErrors(err.response.data.errors);
         }
     };
 
@@ -169,10 +166,8 @@ function App() {
                 data
             );
             return resp;
-            // fetchBmiNum(bmiInfo);
-            // console.log(resp);
         } catch (err) {
-            console.error(err);
+            setErrors(err.response.data.errors);
         }
     };
 
@@ -194,6 +189,7 @@ function App() {
                     ) : showBmiForm && !showBmiEditForm ? (
                         <BmiForm
                             showForm={handleShowForm}
+                            errors={errors}
                             fetchBmiNum={fetchBmiNum}
                             values={values}
                             handleChange={handleChange}
@@ -203,6 +199,7 @@ function App() {
                             showBmitEditForm={handleShowBmiEditForm}
                             fetchBmiNum={fetchBmiNum}
                             bmiInfo={bmiInfo}
+                            errors={errors}
                             handleBmiInfo={handleBmiInfo}
                             fetchBmiPutReq={fetchBmiPutReq}
                         />
@@ -216,6 +213,7 @@ function App() {
                         />
                     )}
                 </div>
+
                 <div>
                     <AddCard
                         text="Enter your Age to reveal your Maximum Aerobic Function heart rate"

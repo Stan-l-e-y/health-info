@@ -6,6 +6,7 @@ const BmiEditForm = ({
     handleBmiInfo,
     showBmitEditForm,
     fetchBmiPutReq,
+    errors,
 }) => {
     return (
         <div>
@@ -42,6 +43,9 @@ const BmiEditForm = ({
                                             className="input input-bordered xs:w-40 sm:w-96 w-24"
                                         />
                                     </label>
+                                    <span className="text-sm text-red-500">
+                                        {errors.height && errors.height}
+                                    </span>
                                 </div>
                                 <div>
                                     <label className="label">
@@ -64,6 +68,9 @@ const BmiEditForm = ({
                                             className="input input-bordered xs:w-40 sm:w-96 w-24"
                                         />
                                     </label>
+                                    <span className="text-sm text-red-500">
+                                        {errors.weight && errors.weight}
+                                    </span>
                                 </div>
                                 <div>
                                     <select
