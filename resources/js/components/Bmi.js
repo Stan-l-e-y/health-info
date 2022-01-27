@@ -2,6 +2,7 @@ import { FaEllipsisH } from "react-icons/fa";
 import Number from "./Number";
 import { useState } from "react";
 import { useSpring, animated, useTransition, useSpringRef } from "react-spring";
+import OutsideAlert from "./outSideAlert";
 
 const Bmi = ({ bmiNum, showEdit, showBmiEdit, showBmitEditForm }) => {
     const [showBmiMessage, setShowBmiMessage] = useState(false);
@@ -43,11 +44,12 @@ const Bmi = ({ bmiNum, showEdit, showBmiEdit, showBmitEditForm }) => {
                                 BODY MASS INDEX:
                             </h2>
                             <div className="relative flex flex-col w-10 items-end">
-                                <FaEllipsisH
-                                    className="hover:cursor-pointer"
-                                    onClick={() => showEdit()}
-                                />
-
+                                <OutsideAlert showEdit={showEdit}>
+                                    <FaEllipsisH
+                                        className="hover:cursor-pointer"
+                                        onClick={() => showEdit()}
+                                    />
+                                </OutsideAlert>
                                 {editTransition(
                                     (style, item) =>
                                         item && (

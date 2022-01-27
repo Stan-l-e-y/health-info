@@ -21,20 +21,13 @@ function App() {
     const [showBmiForm, setShowBmiForm] = useState(false);
     const [showBmiEdit, setshowBmiEdit] = useState(false);
     const [showBmiEditForm, setShowBmiEditForm] = useState(false);
-
     const [errors, setErrors] = useState({});
-
-    // const handleErrors = (error) => {
-    //     setErrors({ weight: error });
-    // };
-
     const [bmiInfo, setBmiInfo] = useState({
         weight: "",
         height: "",
         bmi_number: undefined,
         measurement: "",
     });
-
     const [values, handleChange] = useForm({
         weight: "",
         height: "",
@@ -129,6 +122,7 @@ function App() {
         sendPutRequest(data).then((response) => {
             if (response.status == 200) {
                 handleShowBmiEditForm();
+                handleEditBmi();
             }
 
             sendGetRequest().then((userData) => changeEntireBmiInfo(userData));
