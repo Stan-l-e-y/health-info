@@ -131,8 +131,9 @@ function App() {
 
     const sendPostRequest = async (values) => {
         try {
+            // http://127.0.0.1:8000/api/bmi/store"
             const resp = await axios.post(
-                "http://127.0.0.1:8000/api/bmi/store",
+                "http://health-calcs.online/api/bmi/store",
                 values
             );
         } catch (err) {
@@ -143,7 +144,7 @@ function App() {
     const sendGetRequest = async () => {
         try {
             const resp = await axios.get(
-                "http://127.0.0.1:8000/api/bmi/" + user_id
+                "http://health-calcs.online/api/bmi/" + user_id
             );
 
             return resp.data;
@@ -156,7 +157,7 @@ function App() {
     const sendPutRequest = async (data) => {
         try {
             const resp = await axios.put(
-                "http://127.0.0.1:8000/api/bmi/" + user_id,
+                "http://health-calcs.online/api/bmi/" + user_id,
                 data
             );
             return resp;

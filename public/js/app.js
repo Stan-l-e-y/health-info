@@ -13427,7 +13427,7 @@ function App() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://127.0.0.1:8000/api/bmi/store", values);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://health-calcs.online/api/bmi/store", values);
 
             case 3:
               resp = _context3.sent;
@@ -13461,7 +13461,7 @@ function App() {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://127.0.0.1:8000/api/bmi/" + user_id);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://health-calcs.online/api/bmi/" + user_id);
 
             case 3:
               resp = _context4.sent;
@@ -13495,7 +13495,7 @@ function App() {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().put("http://127.0.0.1:8000/api/bmi/" + user_id, data);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().put("http://health-calcs.online/api/bmi/" + user_id, data);
 
             case 3:
               resp = _context5.sent;
