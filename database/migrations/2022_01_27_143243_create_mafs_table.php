@@ -15,6 +15,8 @@ class CreateMafsTable extends Migration
     {
         Schema::create('mafs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->integer('age');
             $table->timestamps();
         });
     }

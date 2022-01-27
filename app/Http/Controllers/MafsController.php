@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Maf;
 use Illuminate\Http\Request;
 
 class MafsController extends Controller
@@ -34,7 +35,14 @@ class MafsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = request()->validate([
+            'age' => 'required|numeric|gt:0|lt:130',
+
+        ]);
+
+        $maf = Maf::create($attributes);
+
+        return $maf;
     }
 
     /**
