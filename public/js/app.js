@@ -13339,7 +13339,7 @@ function App() {
 
             case 3:
               data = _context.sent;
-              console.log(data);
+              // console.log(data);
               data = {
                 height: data.data.height,
                 weight: data.data.weight,
@@ -13351,7 +13351,7 @@ function App() {
                 return changeEntireBmiInfo(userData);
               }));
 
-            case 7:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -13431,22 +13431,21 @@ function App() {
 
             case 3:
               resp = _context3.sent;
-              console.log(resp);
-              _context3.next = 11;
+              _context3.next = 9;
               break;
 
-            case 7:
-              _context3.prev = 7;
+            case 6:
+              _context3.prev = 6;
               _context3.t0 = _context3["catch"](0);
-              console.log(_context3.t0);
+              // console.log(err);
               setErrors(_context3.t0.response.data.errors);
 
-            case 11:
+            case 9:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 7]]);
+      }, _callee3, null, [[0, 6]]);
     }));
 
     return function sendPostRequest(_x3) {

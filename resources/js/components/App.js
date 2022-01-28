@@ -81,7 +81,7 @@ function App() {
         };
 
         let data = await axios.request(options);
-        console.log(data);
+        // console.log(data);
         data = {
             height: data.data.height,
             weight: data.data.weight,
@@ -136,9 +136,9 @@ function App() {
                 "http://health-calcs.online/api/bmi/store",
                 values
             );
-            console.log(resp);
+            // console.log(resp);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             setErrors(err.response.data.errors);
         }
     };
