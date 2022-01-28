@@ -160,6 +160,7 @@ function App() {
                 "http://health-calcs.online/api/bmi/" + user_id,
                 data
             );
+            console.log(resp);
             return resp;
         } catch (err) {
             setErrors(err.response.data.errors);
