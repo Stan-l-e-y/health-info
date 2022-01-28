@@ -13432,15 +13432,16 @@ function App() {
             case 3:
               resp = _context3.sent;
               console.log(resp);
-              _context3.next = 10;
+              _context3.next = 11;
               break;
 
             case 7:
               _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
               setErrors(_context3.t0.response.data.errors);
 
-            case 10:
+            case 11:
             case "end":
               return _context3.stop();
           }

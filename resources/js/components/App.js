@@ -138,6 +138,7 @@ function App() {
             );
             console.log(resp);
         } catch (err) {
+            console.log(err);
             setErrors(err.response.data.errors);
         }
     };
