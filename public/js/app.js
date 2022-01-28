@@ -13431,20 +13431,21 @@ function App() {
 
             case 3:
               resp = _context3.sent;
-              _context3.next = 9;
+              console.log(resp);
+              _context3.next = 10;
               break;
 
-            case 6:
-              _context3.prev = 6;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
               setErrors(_context3.t0.response.data.errors);
 
-            case 9:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 6]]);
+      }, _callee3, null, [[0, 7]]);
     }));
 
     return function sendPostRequest(_x3) {
@@ -13499,20 +13500,19 @@ function App() {
 
             case 3:
               resp = _context5.sent;
-              console.log(resp);
               return _context5.abrupt("return", resp);
 
-            case 8:
-              _context5.prev = 8;
+            case 7:
+              _context5.prev = 7;
               _context5.t0 = _context5["catch"](0);
               setErrors(_context5.t0.response.data.errors);
 
-            case 11:
+            case 10:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[0, 8]]);
+      }, _callee5, null, [[0, 7]]);
     }));
 
     return function sendPutRequest(_x4) {
