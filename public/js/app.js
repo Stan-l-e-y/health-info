@@ -13339,7 +13339,7 @@ function App() {
 
             case 3:
               data = _context.sent;
-              // console.log(data);
+              console.log(data);
               data = {
                 height: data.data.height,
                 weight: data.data.weight,
@@ -13351,7 +13351,7 @@ function App() {
                 return changeEntireBmiInfo(userData);
               }));
 
-            case 6:
+            case 7:
             case "end":
               return _context.stop();
           }

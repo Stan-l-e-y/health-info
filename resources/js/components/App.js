@@ -81,7 +81,7 @@ function App() {
         };
 
         let data = await axios.request(options);
-        // console.log(data);
+        console.log(data);
         data = {
             height: data.data.height,
             weight: data.data.weight,
