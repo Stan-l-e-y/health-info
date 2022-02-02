@@ -13427,20 +13427,21 @@ function App() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().post("http://health-calcs.online/api/bmi/store", values);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().post( // "http://health-calcs.online/api/bmi/store",
+              "http://127.0.0.1:8000/api/bmi/store", values);
 
             case 3:
               resp = _context3.sent;
-              _context3.next = 9;
+              _context3.next = 10;
               break;
 
             case 6:
               _context3.prev = 6;
               _context3.t0 = _context3["catch"](0);
-              // console.log(err);
+              console.log(_context3.t0);
               setErrors(_context3.t0.response.data.errors);
 
-            case 9:
+            case 10:
             case "end":
               return _context3.stop();
           }
@@ -13462,7 +13463,7 @@ function App() {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://health-calcs.online/api/bmi/" + user_id);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("http://127.0.0.1:8000/api/bmi/" + user_id);
 
             case 3:
               resp = _context4.sent;
@@ -13496,7 +13497,7 @@ function App() {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().put("http://health-calcs.online/api/bmi/" + user_id, data);
+              return axios__WEBPACK_IMPORTED_MODULE_5___default().put("http://127.0.0.1:8000/api/bmi/" + user_id, data);
 
             case 3:
               resp = _context5.sent;
@@ -13505,9 +13506,10 @@ function App() {
             case 7:
               _context5.prev = 7;
               _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
               setErrors(_context5.t0.response.data.errors);
 
-            case 10:
+            case 11:
             case "end":
               return _context5.stop();
           }

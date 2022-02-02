@@ -133,20 +133,22 @@ function App() {
         try {
             // http://127.0.0.1:8000/api/bmi/store"
             const resp = await axios.post(
-                "http://health-calcs.online/api/bmi/store",
+                // "http://health-calcs.online/api/bmi/store",
+                "http://127.0.0.1:8000/api/bmi/store",
                 values
             );
             // console.log(resp);
         } catch (err) {
-            // console.log(err);
+            console.log(err);
             setErrors(err.response.data.errors);
         }
     };
 
     const sendGetRequest = async () => {
+        //"http://health-calcs.online/api/bmi/"
         try {
             const resp = await axios.get(
-                "http://health-calcs.online/api/bmi/" + user_id
+                "http://127.0.0.1:8000/api/bmi/" + user_id
             );
 
             return resp.data;
@@ -158,13 +160,15 @@ function App() {
 
     const sendPutRequest = async (data) => {
         try {
+            //"http://health-calcs.online/api/bmi/"
             const resp = await axios.put(
-                "http://health-calcs.online/api/bmi/" + user_id,
+                "http://127.0.0.1:8000/api/bmi/" + user_id,
                 data
             );
 
             return resp;
         } catch (err) {
+            console.log(err);
             setErrors(err.response.data.errors);
         }
     };
