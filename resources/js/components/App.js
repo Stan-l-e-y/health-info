@@ -123,7 +123,7 @@ function App() {
                 handleEditBmi();
             }
 
-            sendGetRequest().then((userData) => changeEntireBmiInfo(userData));
+            changeEntireBmiInfo(data);
         });
     };
 
