@@ -177,14 +177,14 @@ function App() {
         <div className="flex items-center justify-center m-10">
             <div className="flex items-center  px-4 py-10 bg-cover card bg-base-200">
                 <div>
-                    {!isNaN(bmiInfo.bmi_number) && !showBmiEditForm ? (
+                    {!isNaN(bmiInfo.bmi_number) && showBmiEditForm == false ? (
                         <Bmi
                             bmiNum={bmiInfo.bmi_number}
                             showEdit={handleEditBmi}
                             showBmiEdit={showBmiEdit}
                             showBmitEditForm={handleShowBmiEditForm}
                         />
-                    ) : showBmiForm && !showBmiEditForm ? (
+                    ) : showBmiForm && showBmiEditForm == false ? (
                         <BmiForm
                             showForm={handleShowForm}
                             errors={errors}
