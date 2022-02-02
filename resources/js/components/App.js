@@ -90,9 +90,7 @@ function App() {
             user_id: user_id,
         };
 
-        sendPostRequest(data).then(
-            sendGetRequest().then((userData) => changeEntireBmiInfo(userData))
-        );
+        sendPostRequest(data).then(changeEntireBmiInfo(data));
     };
 
     const fetchBmiPutReq = async (object) => {
